@@ -4,7 +4,7 @@ Hello! My name is Dallin Howard, and my current task here, is to introduce you t
 We'll be learning about **Stacks**, **Sets**, and **Trees**, each of which has different ways of storing data, and are helpful in their own ways, making each of them
 more or less useful depending on how you want to store and unpack the data.
 
-## Stacks
+# Stacks
 
 A stack is essentially a way of storing data that makes items to go in first the last things to come out of the storage. Think of it as a an empty tube of pringles, if you were to put a bbq chip in it would sit on the bottom, and if you were to put another cheddar chip in it would sit on top of the bbq chip. The only way to get the bbq chip would be to take out the cheddar chip that is on top of it. 
 Thats is basically how a stack functions, the last item put in has to be the first item taken out, and the first item put in has to be the last out. 
@@ -101,7 +101,7 @@ Below we have a provided solution, yours still may look somewhat different
   ```
 </details>
 
-## Sets
+# Sets
 
 ### What it is and how it functions 
 
