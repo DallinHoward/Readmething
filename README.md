@@ -12,7 +12,7 @@ Thats is basically how a stack functions, the last item put in has to be the fir
 Stacks can be useful in a few different ways a few common uses is that they can be used to reverse lists, store items or actions for an "undo" type feature, or be used as a way to recursively call a function. 
 
 
-### Example
+## Example
 
 Below we have a simple example of using a stack
 
@@ -43,7 +43,7 @@ Below we have a simple example of using a stack
 Pay attention to how using the mystack.pop() both **removes** the item at the end of the stack **AND returns** it! 
 
 
-### Try it
+## Try it
 
 More or less that's the general basics of a stack! Below we have an example of a stack that needs some editing, right now it reads "['A', 'B', 'X', 'D', 'E', '100', 'F', 'G']" and our goal is to edit the stack to return as "['A', 'B', 'C', 'D', 'E', 'F', 'G']". We plan to do this by using another stack, to save items you'll need again in the future, and removing items you won't need again entirely. Copy paste below into an editor of your choice and give it a go, a solution will be provided if you get stuck. 
 Remember: you can remove items completely just by using the .pop() function in it's own line, as shown in the previous examples
@@ -103,7 +103,7 @@ Below we have a provided solution, yours still may look somewhat different
 
 # Sets
 
-### What it is and how it functions 
+## What it is and how it functions 
 
 Sets are a common data structure used to store multiple items into one variable, a couple of key things to take note of are that sets are unordered, variables can't be changed (only added or removed), and can't have the duplicates of an item in the set.
 
