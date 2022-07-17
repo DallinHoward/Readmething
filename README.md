@@ -221,3 +221,280 @@ Below is a simple solution for the code above.
 	
   ```
 </details>
+
+
+
+# Trees
+
+A tree (or binary tree) is a rather interesting data structure storing data in a stucture similar to a tree, with a main root, and branches coming off of that root, and more branches from the branches, that continues until all the data you have is stored at the end of a branch. These trees are extremely effective at storing large amounts of data into a single variable, and can be be called recursively to locate specific data from within them. 
+
+If we break down a tree to it's simplest parts, we really only have three items to work with, the "node" (or current data), with a left child, and a right child. Simply put trees can have dozens or hundreds of individual nodes, each with their own children elements. The node that everything stems from is called the "root". 
+
+## How to create a tree
+
+Before we get into things take a look at the code below to create a Node, this will be used inside the tree to create the nodes where data is stored.
+
+	class Node:
+		def __init__(self, data=None):
+			self.data = data
+			self.left = None
+			self.right = None
+
+
+Simply put you create a class for the creation of nodes to start things off in the "class Node" definition, which will then create the links to its "left" and "right" child elements. If there is data to store, it will also be found in the node. 
+
+Below we have the creation of the tree itself, along with a function to add nodes into the tree. The comments here can be helpful to explain in the moment.
+
+
+	class Tree:
+	    def __init__(self):
+		self.root = None
+
+	    def insert(self, data):
+		if self.root is None:
+		    self.root = Tree.Node(data)
+		else:
+		    self._insert(data, self.root)  #Calls the insert function
+
+
+	    def _insert(self, data, node):
+	    	#if the node is less than the parent item places on the left side
+		if data < node.data:
+		    # Checks for a left node
+		    if node.left is None:
+			#No left item
+			node.left = Tree.Node(data)
+		    else:
+			# Calls this function again to search for a different position that fits
+			# By traveling farther into the tree
+			self._insert(data, node.left)
+		elif data == node.data:
+		    #skips the node if its a duplicate
+		    pass
+		else:
+		    #if node is greater than it's parent item places it on the right side
+		    if node.right is None:
+			# No node on the right side, so it places
+			node.right = BST.Node(data)
+		    else:
+			# Calls this function again to search for a different position that fits
+			# By traveling farther into the tree
+			self._insert(data, node.right)
+
+Looking at the tree we have established the use of this one is to store numbers. Bigger numbers on the right side of the tree and smaller numbers on the left side of the tree.
+
+<details>
+  <summary>Full tree create w/ node here</summary>
+
+  ```
+	class Tree:
+		class Node:
+			def __init__(self, data=None):
+				self.data = data
+				self.left = None
+				self.right = None
+	    def __init__(self):
+		self.root = None
+
+	    def insert(self, data):
+		if self.root is None:
+		    self.root = Tree.Node(data)
+		else:
+		    self._insert(data, self.root)  #Calls the insert function
+
+
+	    def _insert(self, data, node):
+	    	#if the node is less than the parent item places on the left side
+		if data < node.data:
+		    # Checks for a left node
+		    if node.left is None:
+			#No left item
+			node.left = Tree.Node(data)
+		    else:
+			# Calls this function again to search for a different position that fits
+			# By traveling farther into the tree
+			self._insert(data, node.left)
+		elif data == node.data:
+		    #skips the node if its a duplicate
+		    pass
+		else:
+		    #if node is greater than it's parent item places it on the right side
+		    if node.right is None:
+			# No node on the right side, so it places
+			node.right = BST.Node(data)
+		    else:
+			# Calls this function again to search for a different position that fits
+			# By traveling farther into the tree
+			self._insert(data, node.right)
+	
+  ```
+</details>
+
+With that all you'd have to do is add in the nodes into your tree! This would be done easily throught the following commands
+
+	root = Tree()
+	root.insert(12)
+
+Simple now right? Initialize the root item, then from there on the rest of the items will sort themselves into the tree, for example if we were to add in a few more items with the following commands
+
+	root.insert(18)
+	root.insert(27)
+	root.insert(7)
+	root.insert(2)
+	root.insert(5)
+	root.insert(22)
+	
+With that we have our basic tree that would look similar to this if drawn on paper
+	
+									 12
+								      /     \
+								    7          18
+								  /   \      /    \
+								 2     5    22      27
+								 
+
+
+With that that's the basics of creating and adding to a tree. There are a few ways of creating trees in python, all of which are similar in accomplishing the same task, but different in overall excecution. Many tree's might not have data in all nodes on the tree as well, such as a "huffman coding" type tree, which is a way of binary compression using one of these trees.
+
+## Try this out
+
+Huffman coding, is a form of binary compression that uses the amount of times a letter or symbol appears to create a most data efficient way of storing those characters. For example the string "That's pretty cool" has the letter T appear 4 times, O appears, twice, and the other characters and symbols once. So the process would store the Ts as the smallest number (or highest up on the tree) and the Os with the next priority. Matching characters are typically sorted by first appearance, so H would be next placed on the tree. The way the tree is created is by how often the items appear vs the total amount of characters in the string. [This Website](https://cmps-people.ok.ubc.ca/ylucet/DS/Huffman.html) can break down exactly how things will be assembled in the end tree! Try the website with the following strings 
+	
+	what time is it
+	she sells sea shells by the sea shore
+	the quick black fox jumps over the lazy dog
+
+Note that this is the final product of what the tree holds, but the only things that are important are the end branches or "leaves" with the letters and the occurence counts. 
+
+Below we have a code of a basic huffman coding compressor. 
+
+<details>
+  <summary>huffman problem</summary>
+
+  ```
+
+	string = 'BCAADDDCCACACAC'
+	string = string.lower()
+
+	# Creating tree and makes function for readies for creating the nodes (children)
+	class NodeTree(object):
+	    def __init__(self, left=None, right=None):
+		self.left = left
+		self.right = right
+
+	# Calculates each items occurence in the string
+	quantity = {}
+	for letter in string:
+	    if letter in quantity:
+		quantity[letter] += 1
+	    else:
+		quantity[letter] = 1
+	quantity = sorted(quantity.items(), key=lambda x: x[1], reverse=True)
+	occurence = quantity
+
+	#This calculates how often a letter or symbol shows up in the string
+	while len(occurence) > 1:
+	    (key1, c1) = occurence[-1]
+	    (key2, c2) = occurence[-2]
+	    occurence = occurence[:-2]
+	    node = NodeTree(key1, key2)
+	    occurence.append((node, c1 + c2))
+	    occurence = sorted(occurence, key=lambda x: x[1], reverse=True)
+
+
+
+	# Main function that creates the tree
+	def binarytree(node, binarystring=''):
+	    if type(node) is str:
+		return {node: binarystring}
+	    data = dict()
+
+	    ###add in the updates to the the nodes below, 
+	    ###(hint: each node in this method of a tree uses a dictionary to see it's children, and that recursion is useful here)
+	    ### binarystring is the parent nodes binary number
+	    return data
+
+	
+	huffmanCode = binarytree(occurence[0][0])
+
+	print(' Char | Example binary')
+	print('----------------------')
+	for (letter, quant) in quantity:
+	    print(' %-4r |%12s' % (letter, huffmanCode[letter]))
+
+	print()
+	  ```
+</details>
+
+Be sure to think about how the data is stored, and about how you might recursively call into the tree to add items. 
+
+end product should be as follows: 
+	'c'  |           0
+ 	'a'  |          11
+ 	'd'  |         101
+ 	'b'  |         001
+	
+<details>
+  <summary>Solution Provided</summary>
+
+  ```
+
+	string = 'BCAADDDCCACACAC'
+	string = string.lower()
+
+	# Creating tree and makes function for readies for creating the nodes (children)
+	class NodeTree(object):
+	    def __init__(self, left=None, right=None):
+		self.left = left
+		self.right = right
+
+
+	# Calculates each items occurence in the string
+	quantity = {}
+	for letter in string:
+	    if letter in quantity:
+		quantity[letter] += 1
+	    else:
+		quantity[letter] = 1
+	quantity = sorted(quantity.items(), key=lambda x: x[1], reverse=True)
+	occurence = quantity
+
+	#This calculates how often a letter or symbol shows up in the string
+	while len(occurence) > 1:
+	    (key1, c1) = occurence[-1]
+	    (key2, c2) = occurence[-2]
+	    occurence = occurence[:-2]
+	    node = NodeTree(key1, key2)
+	    occurence.append((node, c1 + c2))
+	    occurence = sorted(occurence, key=lambda x: x[1], reverse=True)
+
+
+
+	# Main function that creates the tree
+	def binarytree(node, binarystring=''):
+	    if type(node) is str:
+		return {node: binarystring}
+	    data = dict()
+
+	    ###add in the updates to the the nodes below, 
+	    ###(hint: each node in this method of a tree uses a dictionary to see it's children, and that recursion is useful here)
+	    ### binarystring is the parent nodes binary number
+	    data.update(binarytree(node.right, '1' + binarystring))
+	    data.update(binarytree(node.left, '0' + binarystring))
+	    return data
+
+
+	huffmanCode = binarytree(occurence[0][0])
+
+	print(' Char | Example binary')
+	print('----------------------')
+	for (letter, quant) in quantity:
+	    print(' %-4r |%12s' % (letter, huffmanCode[letter]))
+
+	print()
+	
+  ```
+</details>
+
+# Conclusion
+That's a basic crash course on three different types of data structures! These all have their own separate uses, and are all helpful in their own ways, when creating a project think about which might be the most beneficial and efficient for your team and project!
