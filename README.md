@@ -423,7 +423,7 @@ Below we have a code of a basic huffman coding compressor.
 	    print(' %-4r |%12s' % (letter, huffmanCode[letter]))
 
 	print()
-	  ```
+```
 </details>
 
 Be sure to think about how the data is stored, and about how you might recursively call into the tree to add items. 
